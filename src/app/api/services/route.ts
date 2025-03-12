@@ -1,24 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
-import { PrismaClient, Secretary } from "@prisma/client";
+import { PrismaClient, Services } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 export async function GET() {
   try {
-    const secretaries = await prisma.secretary.findMany({
+    const services = await prisma.services.findMany({
       orderBy: {
         createdAt: "asc",
       },
     });
 
-    if (!secretaries) {
+    if (!services) {
       return NextResponse.json({
         success: false,
-        error: "Nenhuma secretaria encontrada",
+        error: "Nenhum serviço encontrado",
       });
     }
 
-    return NextResponse.json(secretaries);
+    return NextResponse.json(services);
   } catch (error) {
     return NextResponse.json({ success: false, error: error });
   }
@@ -26,16 +26,16 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const data: Secretary = await req.json();
+    const data: Services[] = await req.json();
 
-    const secretary = await prisma.secretary.create({
+    const services = await prisma.services.createMany({
       data,
+      skipDuplicates: true,
     });
 
     return NextResponse.json({
       success: true,
-      secretary,
-      message: "Requisição criada com sucesso",
+      services,
     });
   } catch (error) {
     return NextResponse.json({ success: false, message: "Erro final" + error });
