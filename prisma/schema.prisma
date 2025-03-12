@@ -1,0 +1,107 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Response {
+  id          Int      @id @default(autoincrement())
+  protocol    String
+  responsible String
+  department  String
+  secretary   String
+  file        String?
+  message     String   @db.VarChar(255)
+  requestId   Int
+  request     Requests @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Requests {
+  id          Int        @id @default(autoincrement())
+  protocol    String     @unique
+  service     String
+  message     String     @db.VarChar(255)
+  file        String?
+  postalCode  String?
+  street      String
+  houseNumber String
+  district    String
+  state       String
+  city        String
+  zone        String?
+  complement  String?
+  actionArea  String
+  department  String
+  secretary   String
+  status      String
+  response    Response[]
+  applicantId Int
+  applicant   Users      @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Services {
+  id          Int         @id @default(autoincrement())
+  name        String
+  actionArea  String
+  description String?
+  code        String?     @db.VarChar(50)
+  sectorId    Int
+  sector      Departments @relation(fields: [sectorId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Departments {
+  id             Int        @id @default(autoincrement())
+  name           String
+  services       Services[]
+  organizationId Int
+  organization   Secretary  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+}
+
+model Secretary {
+  id         Int           @id @default(autoincrement())
+  name       String
+  department Departments[]
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+}
+
+model Users {
+  id            Int        @id @default(autoincrement())
+  name          String
+  birthdate     DateTime
+  sex           String
+  cpf           String     @unique
+  rg            String?
+  nis           String?
+  cadSus        String?
+  electoralCard String
+  phone         String     @unique
+  email         String?
+  password      String
+  postalCode    String?
+  street        String
+  houseNumber   String
+  district      String
+  zone          String?
+  complement    String?
+  city          String
+  state         String
+  secretary     String?
+  department    String?
+  userType      String
+  accessType    String
+  requests      Requests[]
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+}
