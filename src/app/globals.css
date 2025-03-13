@@ -79,6 +79,9 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+  --badge-green: 142.1 76.2% 36.3%;
+  --badge-green-foreground: 210 40% 98%;
+  --badge-blue: 217.2 91.2% 59.8%;
 }
 
 .dark {
@@ -114,6 +117,9 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.274 0.006 286.033);
   --sidebar-ring: oklch(0.442 0.017 285.786);
+  --badge-green: 142.4 71.8% 29.2%;
+  --badge-green-foreground: 210 40% 98%;
+  --badge-blue: 221.2 83.2% 53.3%;
 }
 
 @layer base {
