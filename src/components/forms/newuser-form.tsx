@@ -51,6 +51,7 @@ export function AddNewUser() {
   const [departments, setDepartments] = useState<Departments[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
   const form = useForm<NewUserFormData>({
     resolver: zodResolver(signupSchema),
     defaultValues: {
@@ -60,6 +61,7 @@ export function AddNewUser() {
       cpf: "",
       rg: "",
       cadSus: "",
+      electoralCard: "",
       nis: "",
       phone: "",
       email: "",
@@ -188,6 +190,10 @@ export function AddNewUser() {
 
         if (responseData.success) {
           toast.success(responseData.message);
+          setOpen(false);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
         } else {
           toast.error(responseData.message);
         }
@@ -204,7 +210,7 @@ export function AddNewUser() {
   };
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button>Adicionar Usuário</Button>
       </SheetTrigger>
@@ -218,7 +224,7 @@ export function AddNewUser() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 py-4">
+            className="space-y-4 px-5 py-4">
             <ScrollArea className="w-full h-[38rem] sm:h-[30rem] pr-4">
               <div className="space-y-4">
                 <div className="flex items-center justify-center">
@@ -268,7 +274,7 @@ export function AddNewUser() {
                         <Select
                           onValueChange={field.onChange}
                           value={field.value || ""}>
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Selecione aqui" />
                           </SelectTrigger>
                           <SelectContent>
@@ -303,6 +309,19 @@ export function AddNewUser() {
                       <FormLabel>RG</FormLabel>
                       <FormControl>
                         <Input id="rg" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="electoralCard"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Titulo de leitor *</FormLabel>
+                      <FormControl>
+                        <Input id="electoralCard" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -460,7 +479,7 @@ export function AddNewUser() {
                         <Select
                           onValueChange={field.onChange}
                           value={field.value || ""}>
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Selecione aqui" />
                           </SelectTrigger>
                           <SelectContent>
@@ -506,7 +525,7 @@ export function AddNewUser() {
                         <Select
                           onValueChange={field.onChange}
                           value={field.value || ""}>
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Selecione aqui" />
                           </SelectTrigger>
                           <SelectContent>
@@ -536,7 +555,7 @@ export function AddNewUser() {
                                 form.setValue("department", "");
                               }}
                               value={field.value || ""}>
-                              <SelectTrigger>
+                              <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Selecione aqui" />
                               </SelectTrigger>
                               <SelectContent>
@@ -565,7 +584,7 @@ export function AddNewUser() {
                               onValueChange={field.onChange}
                               value={field.value || ""}
                               disabled={!secretaryValue}>
-                              <SelectTrigger>
+                              <SelectTrigger className="w-full">
                                 <SelectValue placeholder="Selecione aqui" />
                               </SelectTrigger>
                               <SelectContent>
@@ -595,7 +614,7 @@ export function AddNewUser() {
                         <Select
                           onValueChange={field.onChange}
                           value={field.value || ""}>
-                          <SelectTrigger>
+                          <SelectTrigger className="w-full">
                             <SelectValue placeholder="Selecione aqui" />
                           </SelectTrigger>
                           <SelectContent>

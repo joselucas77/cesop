@@ -288,7 +288,7 @@ export function DataTable<TData, TValue>({
                 </Button>
               </div>
               <ScrollArea className="h-[calc(100vh-180px)]">
-                <div className="grid gap-4 py-4">
+                <div className="grid gap-4 p-4">
                   {filters?.map((filter) => (
                     <div key={filter.key} className="space-y-2">
                       <Label htmlFor={filter.key}>{filter.label}</Label>

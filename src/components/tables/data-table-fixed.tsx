@@ -296,7 +296,7 @@ export function DataTable<TData, TValue>({
                 </Button>
               </div>
               <ScrollArea className="h-[calc(100vh-180px)]">
-                <div className="grid gap-4 py-4">
+                <div className="grid gap-4 p-4">
                   {/* Filtro de período */}
                   <div className="space-y-2">
                     <Label>Período</Label>
@@ -337,11 +337,13 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
 
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-md border w-full overflow-hidden">
+        <Table className="w-full table-fixed">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow
+                key={headerGroup.id}
+                className="max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">
                 {headerGroup.headers.map((header) => {
                   return (
                     <TableHead key={header.id}>
@@ -364,7 +366,9 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      className="max-w-[150px] overflow-hidden text-ellipsis whitespace-nowrap">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

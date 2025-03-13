@@ -25,7 +25,7 @@ export function SelectStatus({ value, onChange }: SelectStatusProps) {
 
   return (
     <Select value={value} onValueChange={onChange}>
-      <SelectTrigger>
+      <SelectTrigger className="w-full">
         <SelectValue placeholder="Selecione o status" />
       </SelectTrigger>
       <SelectContent>
