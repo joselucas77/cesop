@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Accordion,
@@ -9,28 +8,10 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { toast } from "sonner";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function HelpContent() {
-  const [feedbackMessage, setFeedbackMessage] = useState("");
   const isMobile = useIsMobile();
-
-  const handleFeedbackSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the feedback to your server
-    console.log("Feedback submitted:", feedbackMessage);
-    toast("Feedback enviado!", {
-      description: "Obrigado por sua contribuição",
-      action: {
-        label: "Fechar",
-        onClick: () => console.log("Fechar"),
-      },
-    });
-    setFeedbackMessage("");
-  };
 
   return (
     <div className="space-y-6">
@@ -40,26 +21,15 @@ export default function HelpContent() {
         </h1>
       </div>
       <Tabs defaultValue="faq" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-2 gap-y-4 md:pag-y-0 md:grid-cols-4 mb-16 md:mb-0">
-          <TabsTrigger value="faq">Perguntas</TabsTrigger>
+        <TabsList className="grid w-full grid-cols-2 gap-y-4 md:pag-y-0 md:grid-cols-3 mb-16 md:mb-0">
+          <TabsTrigger value="faq">Perguntas Frequentes</TabsTrigger>
           <TabsTrigger value="navigation">Navegação</TabsTrigger>
-          {isMobile ? (
-            <div
-              hidden={isMobile}
-              className="inline-flex w-full col-span-2 h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground">
-              <TabsTrigger value="feedback" className="w-full text-center">
-                Feedback
-              </TabsTrigger>
-              <TabsTrigger value="contact" className="w-full text-center">
-                Contato
-              </TabsTrigger>
-            </div>
-          ) : (
-            <>
-              <TabsTrigger value="feedback">Feedback</TabsTrigger>
-              <TabsTrigger value="contact">Contato</TabsTrigger>
-            </>
-          )}
+          <div
+            className={`${isMobile ? "inline-flex w-full col-span-2 h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground" : ""}`}>
+            <TabsTrigger value="contact" className="w-full text-center">
+              Suporte
+            </TabsTrigger>
+          </div>
         </TabsList>
         <TabsContent value="faq">
           <Card>
@@ -137,29 +107,6 @@ export default function HelpContent() {
                   através do link &quot;Ajuda&quot; no rodapé do site.
                 </li>
               </ul>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="feedback">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-lg phone:text-xl">
-                Envie seu Feedback
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleFeedbackSubmit} className="space-y-4">
-                <Textarea
-                  placeholder="Compartilhe suas sugestões ou relate problemas"
-                  value={feedbackMessage}
-                  onChange={(e) => setFeedbackMessage(e.target.value)}
-                  required
-                  className="min-h-[100px]"
-                />
-                <Button type="submit" className="w-full phone:w-auto">
-                  Enviar Feedback
-                </Button>
-              </form>
             </CardContent>
           </Card>
         </TabsContent>
