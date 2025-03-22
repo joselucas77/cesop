@@ -168,7 +168,7 @@ export default function NovaRquesicao() {
     <div className="space-y-6">
       <div className="flex justify-center">
         <h1 className="md:text-3xl text-2xl pl-4 md:pl-0 font-bold">
-          Enviar Requisição
+          Nova Solicitação
         </h1>
       </div>
       <div className="max-w-screen-md mx-auto w-full py-4 inner-shadow shadow-gray-50 rounded-md">
@@ -179,7 +179,7 @@ export default function NovaRquesicao() {
                 isNewAddress ? "h-[29rem] pr-4" : "h-full space-y-2"
               }`}>
               <div className="flex flex-col md:flex-row md:gap-6 mb-2 justify-between">
-                <div className="space-y-2 pb-4">
+                <div className="w-full space-y-2 pb-4">
                   <SetService
                     selectedService={selectedService}
                     setSelectedService={setSelectedService}
@@ -190,8 +190,8 @@ export default function NovaRquesicao() {
                     </p>
                   )}
                 </div>
-                <div className="space-y-2 pb-4">
-                  <div className="flex items-center space-x-2">
+                <div className="w-full space-y-2 pb-4">
+                  <div className="flex items-center justify-end space-x-2">
                     <Switch
                       id="airplane-mode"
                       checked={isNewAddress}
@@ -202,7 +202,7 @@ export default function NovaRquesicao() {
                 </div>
               </div>
               {isNewAddress && (
-                <div>
+                <div className="pb-4">
                   <div className="grid md:grid-cols-2 md:gap-6 mb-2">
                     <FormField
                       name="postalCode"
@@ -370,7 +370,7 @@ export default function NovaRquesicao() {
                 name="file"
                 control={form.control}
                 render={({ field }) => (
-                  <FormItem className="my-2">
+                  <FormItem className="my-4">
                     <FormLabel>Nome Completo</FormLabel>
                     <FormControl>
                       <Input

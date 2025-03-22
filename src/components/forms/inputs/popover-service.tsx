@@ -50,7 +50,7 @@ export function SetService({
   return (
     <div className="space-y-2">
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+        <PopoverTrigger asChild className="max-w-52">
           <Button
             variant="outline"
             role="combobox"
