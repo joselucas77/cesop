@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cookies } from "next/headers";
 import BackPage from "@/components/layout/back-page";
 import AppSidebar from "@/components/layout/sidebar";
-import WhatsAppSupport from "@/components/layout/support";
 
 export const metadata: Metadata = {
   title: "CESOP - Central",
@@ -27,7 +26,6 @@ export default async function SupportLayout({
           <main className="container mx-auto py-4 overflow-hidden">
             {children}
           </main>
-          <WhatsAppSupport />
         </CardContent>
       </Card>
     </SidebarProvider>

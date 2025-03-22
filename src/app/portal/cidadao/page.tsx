@@ -18,6 +18,7 @@ import { verifySession } from "@/lib/auth";
 import { getUserById } from "@/lib/api/users";
 import { getRequestByUserId } from "@/lib/api/requests";
 import LoadingAnimation from "@/app/loading";
+import WhatsAppSupport from "@/components/layout/support";
 
 interface UserData {
   name: string;
@@ -224,6 +225,7 @@ export default function Home() {
           </CardContent>
         </Card>
       </div>
+      <WhatsAppSupport />
     </div>
   );
 }

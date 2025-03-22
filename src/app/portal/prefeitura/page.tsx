@@ -14,6 +14,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import WhatsAppSupport from "@/components/layout/support";
 
 export default function PrefeituraHome() {
   const [hasNewNotification] = useState(true);
@@ -149,6 +150,7 @@ export default function PrefeituraHome() {
           </CardContent>
         </Card>
       </div>
+      <WhatsAppSupport />
     </div>
   );
 }

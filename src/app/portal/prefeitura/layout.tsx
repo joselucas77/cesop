@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 import BackPage from "@/components/layout/back-page";
 import AppSidebar from "@/components/layout/sidebar";
 import ThemeToggle from "@/components/theme/mode-toggle";
-import WhatsAppSupport from "@/components/layout/support";
 
 export const metadata: Metadata = {
   title: "CESOP - Prefeitura",
@@ -29,7 +28,6 @@ export default async function AgentLayout({
           <main className="container mx-auto py-4 overflow-hidden">
             {children}
           </main>
-          <WhatsAppSupport />
         </CardContent>
       </Card>
     </SidebarProvider>

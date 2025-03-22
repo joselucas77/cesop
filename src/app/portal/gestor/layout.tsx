@@ -4,7 +4,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cookies } from "next/headers";
 import BackPage from "@/components/layout/back-page";
 import ThemeToggle from "@/components/theme/mode-toggle";
-import WhatsAppSupport from "@/components/layout/support";
 import AppSidebar from "@/components/layout/sidebar";
 
 export const metadata: Metadata = {
@@ -29,7 +28,6 @@ export default async function AdminLayout({
           <main className="container mx-auto py-4 overflow-hidden">
             {children}
           </main>
-          <WhatsAppSupport />
         </CardContent>
       </Card>
     </SidebarProvider>

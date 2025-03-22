@@ -13,6 +13,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
+import WhatsAppSupport from "@/components/layout/support";
 
 export default function CentralHome() {
   const [hasNewNotification] = useState(true);
@@ -146,12 +147,10 @@ export default function CentralHome() {
             <Button variant="outline">
               <Link href="/portal/central/perfil">Acessar Perfil</Link>
             </Button>
-            {/* <Button variant="outline">
-              <Link href="/portal/central/chamados">Chamados</Link>
-            </Button> */}
           </CardContent>
         </Card>
       </div>
+      <WhatsAppSupport />
     </div>
   );
 }
