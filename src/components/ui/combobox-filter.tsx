@@ -20,6 +20,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ComboboxFilterProps {
+  isFullWidth?: boolean;
   placeholder: string;
   emptyMessage: string;
   value: string;
@@ -28,6 +29,7 @@ interface ComboboxFilterProps {
 }
 
 export function ComboboxFilter({
+  isFullWidth = true,
   placeholder,
   emptyMessage,
   value,
@@ -38,7 +40,7 @@ export function ComboboxFilter({
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild className="w-full">
+      <PopoverTrigger asChild className={`${isFullWidth ? "w-full" : ""}`}>
         <Button
           variant="outline"
           role="combobox"

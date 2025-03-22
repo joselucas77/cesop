@@ -3,8 +3,9 @@ import { PrismaClient } from "@prisma/client";
 import * as argon2 from "argon2";
 import { createSession } from "@/lib/auth";
 
+const prisma = new PrismaClient();
+
 export async function POST(req: NextRequest) {
-  const prisma = new PrismaClient();
   const { cpf, password } = await req.json();
 
   const user = await prisma.users.findFirst({

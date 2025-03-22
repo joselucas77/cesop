@@ -161,7 +161,7 @@ export function EditProfile({ userData }: { userData: Users }) {
             Preencha todos os dados aqui. Clique em salvar quando terminar.
           </SheetDescription>
         </SheetHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-4">
           <ScrollArea className="w-full h-[38rem] sm:h-[30rem] pr-4">
             <div className="space-y-4">
               <div className="space-y-2">
@@ -286,7 +286,7 @@ export function EditProfile({ userData }: { userData: Users }) {
                   defaultValue={userData.state}
                   render={({ field: { onChange, value } }) => (
                     <Select value={value} onValueChange={onChange}>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Selecione aqui">
                           {value || "Selecione aqui"}
                         </SelectValue>

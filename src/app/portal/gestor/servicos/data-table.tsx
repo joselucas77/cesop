@@ -96,6 +96,7 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
         <ComboboxFilter
+          isFullWidth={false}
           placeholder="Selecione a secretaria"
           emptyMessage="Nenhuma secretaria encontrada"
           options={secretaries}

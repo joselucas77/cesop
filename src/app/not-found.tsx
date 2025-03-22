@@ -90,9 +90,6 @@ export default function NotFound() {
           </Button>
         </div>
       </div>
-
-      {/* Border animation */}
-      <div className="absolute inset-0 border-animation" />
     </div>
   );
 }

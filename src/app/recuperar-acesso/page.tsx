@@ -58,12 +58,9 @@ export default function RecoverAccessPage() {
       });
 
       if (response.ok) {
-        const responseData = await response.json();
-        if (responseData.success) {
-          toast.success(responseData.message);
-        } else {
-          setError(responseData.message);
-        }
+        toast.success("Email enviado com sucesso!");
+      } else {
+        toast.success("Erro ao enviar email");
       }
     } catch (error) {
       console.log(error);
