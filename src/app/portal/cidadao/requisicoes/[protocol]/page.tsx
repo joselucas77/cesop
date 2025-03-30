@@ -79,7 +79,7 @@ export default function RequestDetailsPage({
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-center mt-12 lg:mt-0">
+      <div className="flex justify-center">
         <h1 className="md:text-3xl text-2xl pl-4 md:pl-0 font-bold">
           Detalhes da Requisição
         </h1>
@@ -91,6 +91,9 @@ export default function RequestDetailsPage({
               <div>
                 <CardTitle className="text-xl">{request.service}</CardTitle>
                 <CardDescription>Protocolo: {request.protocol}</CardDescription>
+                <CardDescription>
+                  Departamento: {request.department}
+                </CardDescription>
               </div>
               <StatusBadge status={request.status} />
             </div>
@@ -112,16 +115,6 @@ export default function RequestDetailsPage({
                   </span>
                 </div>
               </div>
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold">Prioridade:</span>
-                  <span>Média</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="font-semibold">Departamento:</span>
-                  <span>{request.department}</span>
-                </div>
-              </div>
             </div>
             <Separator className="my-4" />
             <div>
@@ -136,10 +129,10 @@ export default function RequestDetailsPage({
             <CardTitle>Linha do Tempo</CardTitle>
           </CardHeader>
           <CardContent>
-            <ol className="relative border-l border-gray-200 dark:border-gray-700">
+            <ol className="relative border-l border-zinc-200 dark:border-zinc-800">
               {Commentes.map((comment, index) => (
                 <li key={index} className="mb-10 ml-6">
-                  <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900">
+                  <span className="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white dark:ring-zinc-900 dark:bg-blue-900">
                     <Avatar className="w-9 h-9">
                       <AvatarFallback>
                         {comment.author
@@ -150,16 +143,16 @@ export default function RequestDetailsPage({
                       </AvatarFallback>
                     </Avatar>
                   </span>
-                  <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-700 dark:border-gray-600">
+                  <div className="p-4 bg-white border border-zinc-200 rounded-lg shadow-sm dark:bg-zinc-900 dark:border-zinc-800">
                     <div className="items-center justify-between mb-3 sm:flex">
-                      <time className="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0">
+                      <time className="mb-1 text-xs font-normal text-zinc-400 sm:order-last sm:mb-0">
                         {formatDate(comment.date, "dd/MM/yyyy") ?? "N/A"}
                       </time>
-                      <div className="text-sm font-normal text-gray-500 dark:text-gray-300">
+                      <div className="text-sm font-normal text-zinc-500 dark:text-zinc-300">
                         {comment.author}
                       </div>
                     </div>
-                    <div className="text-sm font-normal text-gray-500 dark:text-gray-300">
+                    <div className="text-sm font-normal text-zinc-500 dark:text-zinc-300">
                       {comment.content}
                     </div>
                   </div>
@@ -178,7 +171,7 @@ export default function RequestDetailsPage({
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-400 mb-1">
+                  className="block text-sm font-medium text-zinc-400 mb-1">
                   Mensagem
                 </label>
                 <Textarea
@@ -192,7 +185,7 @@ export default function RequestDetailsPage({
               <div>
                 <label
                   htmlFor="file"
-                  className="block text-sm font-medium text-gray-400 mb-1">
+                  className="block text-sm font-medium text-zinc-400 mb-1">
                   Anexar Arquivo
                 </label>
                 <Input

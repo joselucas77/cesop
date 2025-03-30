@@ -82,3 +82,13 @@ export const normalizeAccessLevel = (accessLevel: string): string => {
       return accessLevel;
   }
 };
+
+export const formatAvatarName = (name: string | undefined): string => {
+  if (!name) return "";
+
+  const nameParts = name.split(" ");
+  if (nameParts.length >= 2) {
+    return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
+  }
+  return nameParts[0][0].toUpperCase();
+};

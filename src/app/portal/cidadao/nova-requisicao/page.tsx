@@ -371,7 +371,7 @@ export default function NovaRquesicao() {
                 control={form.control}
                 render={({ field }) => (
                   <FormItem className="my-4">
-                    <FormLabel>Nome Completo</FormLabel>
+                    <FormLabel>Arquivo</FormLabel>
                     <FormControl>
                       <Input
                         id="file"

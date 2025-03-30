@@ -4,6 +4,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --color-badge-green: oklch(0.723 0.219 149.579);
+  --color-badge-blue: oklch(0.623 0.214 259.815);
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -79,9 +83,6 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
-  --badge-green: 142.1 76.2% 36.3%;
-  --badge-green-foreground: 210 40% 98%;
-  --badge-blue: 217.2 91.2% 59.8%;
 }
 
 .dark {
@@ -117,9 +118,6 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.274 0.006 286.033);
   --sidebar-ring: oklch(0.442 0.017 285.786);
-  --badge-green: 142.4 71.8% 29.2%;
-  --badge-green-foreground: 210 40% 98%;
-  --badge-blue: 221.2 83.2% 53.3%;
 }
 
 @layer base {
@@ -217,27 +215,54 @@
       var(--primary-foreground)
     )
     1;
-  mask: linear-gradient(#fff 0 0) top, linear-gradient(#fff 0 0) right,
-    linear-gradient(#fff 0 0) bottom, linear-gradient(#fff 0 0) left;
-  mask-size: 100% 2px, 2px 100%, 100% 2px, 2px 100%;
+  mask:
+    linear-gradient(#fff 0 0) top,
+    linear-gradient(#fff 0 0) right,
+    linear-gradient(#fff 0 0) bottom,
+    linear-gradient(#fff 0 0) left;
+  mask-size:
+    100% 2px,
+    2px 100%,
+    100% 2px,
+    2px 100%;
   mask-repeat: no-repeat;
   animation: border-dance 4s linear infinite;
 }
 
 @keyframes border-dance {
   0% {
-    mask-position: -100% 0, 100% -100%, 200% 100%, -100% 200%;
+    mask-position:
+      -100% 0,
+      100% -100%,
+      200% 100%,
+      -100% 200%;
   }
   25% {
-    mask-position: 100% 0, 100% 100%, 0 100%, 0 -100%;
+    mask-position:
+      100% 0,
+      100% 100%,
+      0 100%,
+      0 -100%;
   }
   50% {
-    mask-position: 100% 0, 0 100%, 0 100%, 0 100%;
+    mask-position:
+      100% 0,
+      0 100%,
+      0 100%,
+      0 100%;
   }
   75% {
-    mask-position: 0 0, 0 0, 100% 100%, 0 0;
+    mask-position:
+      0 0,
+      0 0,
+      100% 100%,
+      0 0;
   }
   100% {
-    mask-position: -100% 0, 100% -100%, 200% 100%, -100% 200%;
+    mask-position:
+      -100% 0,
+      100% -100%,
+      200% 100%,
+      -100% 200%;
   }
 }

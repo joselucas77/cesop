@@ -24,4 +24,11 @@ export const requestSchema = z.object({
   status: z.string(),
 });
 
+export const requestResponseSchema = z.object({
+  message: z.string().min(1, { message: "Mensagem é obrigatória" }),
+  file: z.optional(z.string()),
+  status: z.string(),
+});
+
 export type RequestFormData = z.infer<typeof requestSchema>;
+export type RequestResponseFormData = z.infer<typeof requestResponseSchema>;

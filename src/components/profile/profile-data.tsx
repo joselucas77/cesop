@@ -14,18 +14,9 @@ import type { Users } from "@prisma/client";
 import { EditProfile } from "./edit";
 import { formatDate } from "date-fns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { formatAvatarName } from "@/utils/format";
 
 export function PersonalData({ userData }: { userData: Users }) {
-  const formatName = (name: string | undefined): string => {
-    if (!name) return "";
-
-    const nameParts = name.split(" ");
-    if (nameParts.length >= 2) {
-      return (nameParts[0][0] + nameParts[1][0]).toUpperCase();
-    }
-    return nameParts[0][0].toUpperCase();
-  };
-
   return (
     <Card>
       <CardHeader>
@@ -37,7 +28,7 @@ export function PersonalData({ userData }: { userData: Users }) {
       <CardContent>
         <div className="flex flex-col items-center mb-6">
           <Avatar className="w-24 h-24 mb-4">
-            <AvatarFallback>{formatName(userData.name)}</AvatarFallback>
+            <AvatarFallback>{formatAvatarName(userData.name)}</AvatarFallback>
           </Avatar>
         </div>
         <div className="space-y-4 shadow-inner p-4 rounded-lg dark:bg-zinc-900">
