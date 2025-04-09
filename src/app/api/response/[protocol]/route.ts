@@ -4,6 +4,33 @@ import { ResponseWithStatus } from "@/types/response";
 
 const prisma = new PrismaClient();
 
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { protocol: string } }
+) {
+  try {
+    const protocol = (await params).protocol;
+    const request = await prisma.requests.findUnique({
+      where: { protocol: protocol },
+      include: {
+        response: true,
+        applicant: true,
+      },
+    });
+
+    if (!request) {
+      return NextResponse.json({
+        success: false,
+        message: "Requisição/Resposta não encontrada",
+      });
+    }
+
+    return NextResponse.json(request);
+  } catch (error) {
+    return NextResponse.json({ success: false, message: error });
+  }
+}
+
 export async function POST(
   req: NextRequest,
   { params }: { params: { protocol: string } }

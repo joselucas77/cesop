@@ -21,7 +21,7 @@ import { toast } from "sonner";
 import { StatusBadge } from "@/components/tables/badge-status";
 import { Input } from "@/components/ui/input";
 import { getRequest } from "@/lib/api/requests";
-import { Requests, Users } from "@prisma/client";
+import { Requests, Response, Users } from "@prisma/client";
 import LoadingAnimation from "@/app/loading";
 import { CalendarIcon, Loader2, MapPinIcon } from "lucide-react";
 import { formatDate } from "date-fns";
@@ -51,8 +51,9 @@ export default function DetalhesSolicitacao({
 }) {
   const { protocol } = use(params);
   const decodeProtocolo = decodeURIComponent(protocol);
-  const { userId, userData } = useAuth();
+  const { userData } = useAuth();
   const [request, setRequest] = useState<Requests>();
+  const [response, setResponse] = useState<Response>();
   const [user, setUser] = useState<Users>();
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(true);
@@ -93,19 +94,53 @@ export default function DetalhesSolicitacao({
     fetchData();
   }, [decodeProtocolo]);
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     try {
+  //       console.log("userId", userId);
+  //       console.log("user", userData);
+  //     } catch (error) {
+  //       console.error("Erro ao buscar as requisições:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  //   fetchData();
+  // }, [userId, userData]);
+
   useEffect(() => {
     async function fetchData() {
       try {
-        console.log("userId", userId);
-        console.log("user", userData);
+        const encodedProtocolo = encodeURIComponent(protocol);
+        const response = await fetch(`/api/response/${encodedProtocolo}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Erro ao buscar a resposta");
+        }
+        const data = await response.json();
+        if (!data.success) {
+          toast.error(data.message || "Erro ao buscar a resposta");
+        } else {
+          setResponse(data.response);
+        }
       } catch (error) {
-        console.error("Erro ao buscar as requisições:", error);
+        console.error("Error fetching response:", error);
+        toast.error("Erro ao buscar a resposta");
       } finally {
         setLoading(false);
       }
     }
+
     fetchData();
-  }, [userId, userData]);
+  }, [protocol]);
+
+  useEffect(() => {
+    console.log("response", response);
+  }, [response]);
 
   const onSubmit = async (data: RequestResponseFormData) => {
     setLoading(true);
