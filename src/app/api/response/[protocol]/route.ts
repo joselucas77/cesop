@@ -6,10 +6,11 @@ const prisma = new PrismaClient();
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { protocol: string } }
+  { params }: { params: Promise<{ protocol: string }> }
 ) {
+  const protocol = (await params).protocol;
+
   try {
-    const protocol = (await params).protocol;
     const request = await prisma.requests.findUnique({
       where: { protocol: protocol },
       include: {
@@ -33,7 +34,7 @@ export async function GET(
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { protocol: string } }
+  { params }: { params: Promise<{ protocol: string }> }
 ) {
   try {
     const protocol = (await params).protocol;
