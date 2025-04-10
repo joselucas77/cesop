@@ -36,8 +36,8 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ protocol: string }> }
 ) {
+  const protocol = (await params).protocol;
   try {
-    const protocol = (await params).protocol;
     const responseData: ResponseWithStatus = await req.json();
 
     const request = await prisma.requests.findUnique({
