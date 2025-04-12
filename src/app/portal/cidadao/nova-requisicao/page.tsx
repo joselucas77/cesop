@@ -125,7 +125,6 @@ export default function NovaRquesicao() {
       applicantId: userData.id,
       ...data,
       service: selectedService.name,
-      complement: data.complement === "" ? null : data.complement,
     };
 
     try {

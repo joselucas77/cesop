@@ -37,6 +37,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { isActiveLink } from "@/utils/sidebarActive";
+import { useAuth } from "@/contexts/auth-context";
 
 const menuItemsByUser = {
   cidadao: [
@@ -120,6 +121,12 @@ export default function AppSidebar({ userType }: SidebarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const menuItems = menuItemsByUser[userType] || [];
+  const { logout } = useAuth();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push("/");
+  };
 
   return (
     <Sidebar variant="floating" collapsible="icon">
@@ -203,11 +210,9 @@ export default function AppSidebar({ userType }: SidebarProps) {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild>
-              <Link href="/api/logout">
-                <LogOut className="shrink-0" />
-                <span>Sair</span>
-              </Link>
+            <SidebarMenuButton onClick={handleLogout}>
+              <LogOut className="shrink-0" />
+              <span>Sair</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

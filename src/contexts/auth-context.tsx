@@ -61,6 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (response.ok) {
         setUserId(null);
         setUserData(null);
+        window.location.href = "/";
       }
     } catch (error) {
       console.error("Logout failed:", error);

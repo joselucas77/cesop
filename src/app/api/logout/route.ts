@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { deleteSession } from "@/lib/auth";
 
-export async function POST(req: NextRequest) {
+export async function POST() {
   await deleteSession();
-  return NextResponse.redirect(new URL("/", req.url));
+  return NextResponse.json({ success: true });
 }
