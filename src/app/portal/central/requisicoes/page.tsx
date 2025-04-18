@@ -1,70 +1,35 @@
 "use client";
 
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { StatusBadge } from "@/components/tables/badge-status";
+import { useEffect, useState } from "react";
+import { columns } from "./columns";
+import { DataTable } from "./data-table";
+import { Requests } from "@prisma/client";
+import { verifySession } from "@/lib/auth";
+import { getUserById } from "@/lib/api/users";
+import { getRequestByDepartament } from "@/lib/api/requests";
 
-interface Request {
-  id: number;
-  protocol: string;
-  servico: string;
-  status: "deferido" | "indeferido" | "em_andamento";
-  data: Date;
-}
+export default function DemoPage() {
+  const [data, setData] = useState<Requests[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const mockData: Request[] = [
-  {
-    id: 1,
-    protocol: "C123456",
-    servico: "Informação sobre IPTU",
-    data: new Date("2023-05-01"),
-    status: "indeferido",
-  },
-  {
-    id: 2,
-    protocol: "C234567",
-    servico: "Solicitação de poda de árvore",
-    data: new Date("2023-05-02"),
-    status: "deferido",
-  },
-  {
-    id: 3,
-    protocol: "C345678",
-    servico: "Reclamação sobre iluminação pública",
-    data: new Date("2023-05-03"),
-    status: "em_andamento",
-  },
-];
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const { userId } = await verifySession();
 
-export default function Requisicoes() {
-  const [search, setSearch] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
+        const user = await getUserById(userId);
+        const departament = user.department;
+        const requests = await getRequestByDepartament(departament as string);
+        setData(requests);
+      } catch (error) {
+        console.error("Erro ao buscar as requisições:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  const filteredData = mockData.filter(
-    (item) =>
-      (item.servico.toLowerCase().includes(search.toLowerCase()) ||
-        item.protocol.includes(search)) &&
-      (statusFilter === "all" || item.status === statusFilter)
-  );
+    fetchData();
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -73,59 +38,7 @@ export default function Requisicoes() {
           Requisições
         </h1>
       </div>
-      <div className="flex justify-between space-x-4">
-        <Input
-          placeholder="Pesquisar por serviço ou protocolo"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="max-w-sm"
-        />
-        <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filtrar por status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Todos</SelectItem>
-            <SelectItem value="deferido">Deferido</SelectItem>
-            <SelectItem value="indeferido">Indeferido</SelectItem>
-            <SelectItem value="em_andamento">Em Andamento</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-      <div className="border rounded-md">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Protocolo</TableHead>
-              <TableHead>Serviço</TableHead>
-              <TableHead>Data</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Ações</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredData.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell>{item.protocol}</TableCell>
-                <TableCell>{item.servico}</TableCell>
-                <TableCell>
-                  {format(item.data, "PPP", { locale: ptBR })}
-                </TableCell>
-                <TableCell>
-                  <StatusBadge status={item.status} />
-                </TableCell>
-                <TableCell>
-                  <Button asChild variant="link">
-                    <Link href={`/portal/central/requisicoes/${item.protocol}`}>
-                      Ver detalhes
-                    </Link>
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <DataTable columns={columns} data={data} loading={loading} />
     </div>
   );
 }

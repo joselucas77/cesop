@@ -30,5 +30,11 @@ export const requestResponseSchema = z.object({
   status: z.string(),
 });
 
+export const requestCentralSchema = z.object({
+  department: z.string().min(1, { message: "Mensagem é obrigatória" }),
+  message: z.string().min(1, { message: "Mensagem é obrigatória" }),
+});
+
 export type RequestFormData = z.infer<typeof requestSchema>;
 export type RequestResponseFormData = z.infer<typeof requestResponseSchema>;
+export type RequestCentralFormData = z.infer<typeof requestCentralSchema>;

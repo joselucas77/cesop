@@ -86,7 +86,6 @@ export default function DetalhesSolicitacao({
         setUser(user);
       } catch (error) {
         console.error("Error fetching request:", error);
-        toast.error("Erro ao carregar os dados da requisição");
       } finally {
         setLoading(false);
       }

@@ -94,3 +94,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: false, message: "Erro final" + error });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const requestData: Requests = await req.json();
+
+    const updatedRequest = await prisma.requests.update({
+      where: { id: requestData.id },
+      data: requestData,
+    });
+
+    return NextResponse.json({
+      success: true,
+      request: updatedRequest,
+      message: "Requisição atualizada com sucesso",
+    });
+  } catch (error) {
+    return NextResponse.json({ success: false, message: error });
+  }
+}

@@ -28,3 +28,19 @@ export async function GET(
     return NextResponse.json({ success: false, error: error });
   }
 }
+
+export async function PUT(req: NextRequest) {
+  try {
+    const requestData = await req.json();
+    const { protocol, ...data } = requestData;
+
+    const updatedRequest = await prisma.requests.update({
+      where: { protocol: protocol },
+      data,
+    });
+
+    return NextResponse.json(updatedRequest);
+  } catch (error) {
+    return NextResponse.json({ success: false, message: error });
+  }
+}
